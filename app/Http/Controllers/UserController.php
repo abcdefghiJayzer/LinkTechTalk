@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 
-
 class UserController extends Controller
 {
     public function index()
@@ -160,7 +159,7 @@ class UserController extends Controller
 
                 Auth::login($newUser);
                 return redirect()->intended(route('user.index'));
-                // dd($newUser);
+
             }
         } catch (\Exception $e) {
             dd($e->getMessage());

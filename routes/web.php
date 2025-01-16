@@ -4,7 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserLoginController;
 use Illuminate\Support\Facades\Route;
-
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\Auth\GoogleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +29,8 @@ Route::get('/user/search', [UserController::class, 'userSearch'])->name('user.se
 Route::post('/user/like/{id}', [UserController::class, 'likePost'])->name('user.like');
 Route::post('/user/comment/{id}', [UserController::class, 'commentOnPost'])->name('user.comment');
 
+Route::get('/alogin', [UserLoginController::class, 'alogin'])->name('user.login');
+
 
 Route::get('/authenticate/redirect/{social}', [UserController::class, 'fbRedirect'])->name('facebook-redirect');
 Route::get('/authenticate/callback/{social}', [UserController::class, 'fbCallback'])->name('facebook-callback');
@@ -35,13 +38,16 @@ Route::get('/authenticate/callback/{social}', [UserController::class, 'fbCallbac
 Route::get('login/redirect/{social}', [UserController::class, 'googleRedirect'])->name('google-redirect');
 Route::get('login/callback/{social}', [UserController::class, 'googleCallback'])->name('google-callback');
 
-Route::middleware(['auth', 'admin'])->group(function () {
- Route::resource('admin', AdminController::class);
- Route::get('/showCategory', [AdminController::class, 'showCategory'])->name('admin.showCategory');
- Route::get('/addCategory', [AdminController::class, 'addCategory'])->name('admin.addCategory');
- Route::post('/storeCategory', [AdminController::class, 'storeCategory'])->name('admin.storeCategory');
- Route::get('/showEcategory/{id}', [AdminController::class, 'showEcategory'])->name('admin.showEcategory');
- Route::put('/updateCategory/{id}', [AdminController::class, 'updateCategory'])->name('admin.updateCategory');
- Route::delete('/admin/category/{id}', [AdminController::class, 'destroyCategory'])->name('admin.deleteCategory');
+// Route::get('login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
+// Route::get('login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('admin', AdminController::class);
+    Route::get('/showCategory', [AdminController::class, 'showCategory'])->name('admin.showCategory');
+    Route::get('/addCategory', [AdminController::class, 'addCategory'])->name('admin.addCategory');
+    Route::post('/storeCategory', [AdminController::class, 'storeCategory'])->name('admin.storeCategory');
+    Route::get('/showEcategory/{id}', [AdminController::class, 'showEcategory'])->name('admin.showEcategory');
+    Route::put('/updateCategory/{id}', [AdminController::class, 'updateCategory'])->name('admin.updateCategory');
+    Route::delete('/admin/category/{id}', [AdminController::class, 'destroyCategory'])->name('admin.deleteCategory');
 });

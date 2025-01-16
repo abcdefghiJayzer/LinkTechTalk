@@ -38,23 +38,6 @@
                 </p>
             </form>
 
-            <p class="text-center text-white pt-6">or Sign in with</p>
-            <div class="flex justify-between gap-4 pt-6 h-16">
-
-                <a href="{{ route('google-redirect', 'google') }}""
-                    class="flex items-center justify-center bg-orange-500 text-black py-2 px-4 rounded-lg shadow-md hover:bg-orange-600 w-full text-center">
-                    <span class="mr-2">Google</span>
-                    <i class="fab fa-google"></i>
-                </a>
-
-                <a href="{{ route('facebook-redirect', 'facebook') }}"
-                    class="flex items-center justify-center bg-blue-500 text-black py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 w-full text-center">
-                    <span class="mr-2">Facebook</span>
-                    <i class="fab fa-google"></i>
-                </a>
-
-            </div>
-
         </div>
     </div>
 </section>

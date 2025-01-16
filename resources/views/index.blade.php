@@ -6,24 +6,32 @@
 
 @include("includes.hero")
 
+<!-- About Us Section -->
+<section class="bg-neutral-900 px-4 m-0">
+    <div class="max-w-screen-lg mx-auto text-center text-white py-16">
+        <h2 class="text-2xl font mb-4">About Us</h2>
+        <p class="text-lg mb-4">Hi! we are dedicated to delivering high-quality content that informs, educates, and entertains. Our blog is a platform where we share insights, trends, and stories across tech. Our goal is to create a community of like-minded individuals passionate about learning and growing together.
+        </p>
+        <p class="text-lg">
+            Thank you for visiting! Explore our blog and join us in discovering more about Tech!.
+        </p>
+    </div>
+</section>
+
+<!-- Blogs Section -->
 <section class="max-w-screen-lg mx-auto">
     <h1 class="text-center font-bold text-white text-3xl p-10 mt-4 uppercase">
         Blogs
     </h1>
 
-
     <form action="javascript:void(0);" method="GET">
-
         <div class="flex flex-col md:flex-row items-center justify-end space-y-2 md:space-y-0 w-full overflow-x-hidden px-5 md:px-0">
-
             <div class="flex flex-col md:flex-row md:items-center w-full">
                 <select class="bg-neutral-800 text-white border border-neutral-700 rounded p-3 md:mx-2 w-full md:w-auto" id="categoryFilter" name="category">
                     <option class="pr-4" value="">Sort By Category</option>
-
                     @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->title }}</option>
                     @endforeach
-
                 </select>
             </div>
 
@@ -34,7 +42,6 @@
         </div>
     </form>
 
-
 </section>
 
 <section class="posts">
@@ -42,19 +49,16 @@
         @foreach ($posts as $post)
 
         <div class="p-4 bg-neutral-900 max-w-xs shadow rounded-xl mx-auto">
-
             <div>
                 <img class="rounded-lg object-cover h-52 w-full" src="{{ asset('storage/' . $post->image) }}" alt="Post Image" />
-
             </div>
             <div class="mb-4">
                 <h1 class="text-xl font-bold text-orange-400 pt-4 hover:text-orange-800 truncate">
-                    <a href="{{ route('user.view', ['id' => $post->id]) }}">{{$post->title}}</a>
+                    <a href="{{ route('user.view', ['id' => $post->id]) }}">{{ $post->title }}</a>
                 </h1>
                 <small class="text-neutral-400">
                     {{ \Carbon\Carbon::parse($post->date_time)->format('F j, Y g:i A') }}
                 </small>
-
             </div>
 
             <div class="pb-10">
@@ -63,13 +67,11 @@
                 </div>
             </div>
 
-
             <div class="flex items-center justify-start mt-2 pb-3 flex-wrap">
                 <a class="categoryoverflow bg-orange-200 text-black text-sm rounded-md px-2 py-1 mr-1">
                     {{ $post->category ? $post->category->title : 'No Category' }}
                 </a>
             </div>
-
 
             <div class="flex justify-between text-neutral-600">
                 <button id="heart-button" class="" disabled>
@@ -83,7 +85,5 @@
         @endforeach
     </div>
 </section>
-
-
 
 @endsection

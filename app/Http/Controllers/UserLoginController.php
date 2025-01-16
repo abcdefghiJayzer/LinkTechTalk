@@ -6,12 +6,18 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Socialite;
 
 class UserLoginController extends Controller
 {
     public function login()
     {
         return view('pages.login');
+    }
+
+    public function alogin()
+    {
+        return view('pages.admin');
     }
 
     public function authenticate(Request $request)
@@ -62,6 +68,7 @@ class UserLoginController extends Controller
 
         return redirect()->route('user.index')->with('success', 'Registration successful. Welcome!');
     }
+
 
     public function logout(Request $request)
     {

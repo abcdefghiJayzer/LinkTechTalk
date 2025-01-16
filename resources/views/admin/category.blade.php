@@ -8,19 +8,6 @@
 
         @include("admin.sidebar")
 
-        @if (session('success'))
-        <div class="flash-message success bg-green-500 text-white p-4 mb-4 rounded flex justify-between items-center">
-            <span>{{ session('success') }}</span>
-            <button class="close-button text-white" onclick="closeFlashMessage()">&times;</button>
-        </div>
-        @endif
-
-        @if (session('error'))
-        <div class="flash-message error bg-red-500 text-white p-4 mb-4 rounded flex justify-between items-center">
-            <span>{{ session('error') }}</span>
-            <button class="close-button text-white" onclick="closeFlashMessage()">&times;</button>
-        </div>
-        @endif
 
         <main class="w-full p-10 ml-0 lg:ml-72 bg-neutral-850">
             <h2 class="text-3xl text-white mb-6 font-semibold">Add Category</h2>

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+
 
 
 
@@ -52,7 +54,7 @@ class AdminController extends Controller
             // Handle the image upload if an image is provided
             if ($request->hasFile('image')) {
                 // Store the image and get the path
-                $imagePath = $request->file('image')->store('posts/images', 'public');
+                $imagePath = $request->file('image')->store('storage/posts/images', 'public');
                 $post->image = $imagePath; // Save the image path to the post
             }
 
@@ -82,13 +84,15 @@ class AdminController extends Controller
         return view('admin.update', compact('posts', 'categories'));
     }
 
-    public function update(Request $request, string $id)
+
+    // Controller method
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'body' => 'required|string',
             'category' => 'required|integer',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',  // Image validation
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
         try {
@@ -97,26 +101,25 @@ class AdminController extends Controller
             $post->body = $validatedData['body'];
             $post->category_id = $validatedData['category'];
 
-            // Handle the image upload if a new image is provided
             if ($request->hasFile('image')) {
-                // Delete the old image if it exists
+                // Delete old image
                 if ($post->image) {
                     Storage::disk('public')->delete($post->image);
                 }
 
-                // Store the new image and update the path
+                // Store new image
                 $imagePath = $request->file('image')->store('posts/images', 'public');
                 $post->image = $imagePath;
             }
 
             $post->save();
-
             return redirect()->route('admin.index')->with('success', 'Post updated successfully!');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('admin.index')->with('error', 'Something went wrong: ' . $e->getMessage());
         }
     }
+
 
 
     public function destroy(string $id)
